@@ -1,12 +1,10 @@
 # Unit Test
 
-
-
 ## How to set value for fields in antform because getFieldsValue is used in codes?
 
 Solution: use setFieldsValue to set value for fields in antform
 
-```
+```text
   test('import', (done: any) => {
     const testComponent = createRemoteImportForm()
     const form = testComponent.root.find(
@@ -29,7 +27,7 @@ A: RDD = readable driven development
 
 Code:
 
-```
+```text
 describe("GIFW Table Test", () =>{
       describe("Render the table", () =>{
             it("Render Column A", () => {});
@@ -46,5 +44,16 @@ describe("GIFW Table Test", () =>{
 });
 ```
 
+##  Where is the document for End-to-End and unit test?
 
+* Unit test: [https://teams.microsoft.com/\_\#/docx/viewer/teams/https%3A~2F~2Fa10networks.sharepoint.com~2Fsites~2FGUIFuture~2FShared%20Documents~2FGeneral~2Fauto-test~2Funittest\_handbook.docx?threadId=19%3Ae81ccb01ec2e48f9b6f4fd21da53fad6%40thread.skype&baseUrl=https%3A~2F~2Fa10networks.sharepoint.com~2Fsites~2FGUIFuture&fileId=ED9FF30D-80C8-4C55-A08E-A6C7D3C378DB&ctx=files&viewerAction=view](https://teams.microsoft.com/_#/docx/viewer/teams/https%3A~2F~2Fa10networks.sharepoint.com~2Fsites~2FGUIFuture~2FShared%20Documents~2FGeneral~2Fauto-test~2Funittest_handbook.docx?threadId=19%3Ae81ccb01ec2e48f9b6f4fd21da53fad6%40thread.skype&baseUrl=https%3A~2F~2Fa10networks.sharepoint.com~2Fsites~2FGUIFuture&fileId=ED9FF30D-80C8-4C55-A08E-A6C7D3C378DB&ctx=files&viewerAction=view)
+* End-to-End test: [https://teams.microsoft.com/\_\#/docx/viewer/teams/https%3A~2F~2Fa10networks.sharepoint.com~2Fsites~2FGUIFuture~2FShared%20Documents~2FGeneral~2Fauto-test~2Fe2etest\_handbook.docx?threadId=19%3Ae81ccb01ec2e48f9b6f4fd21da53fad6%40thread.skype&baseUrl=https%3A~2F~2Fa10networks.sharepoint.com~2Fsites~2FGUIFuture&fileId=CC8F2496-CCCB-4CCF-AA05-CCFE5F8922F7&ctx=files&viewerAction=view](https://teams.microsoft.com/_#/docx/viewer/teams/https%3A~2F~2Fa10networks.sharepoint.com~2Fsites~2FGUIFuture~2FShared%20Documents~2FGeneral~2Fauto-test~2Fe2etest_handbook.docx?threadId=19%3Ae81ccb01ec2e48f9b6f4fd21da53fad6%40thread.skype&baseUrl=https%3A~2F~2Fa10networks.sharepoint.com~2Fsites~2FGUIFuture&fileId=CC8F2496-CCCB-4CCF-AA05-CCFE5F8922F7&ctx=files&viewerAction=view)
+
+##  Timeout issue on SubGlobalServerList.text.tsx?
+
+In the function 'onUnAssociateSG', serviceGroup API is `/hccapi/v3/provider/${getItem( 'PROVIDER',)}/tenant/${tenant}/shared-object/slb/service-group/${sgName}`. Before testing the function, provider name needs to be initialized. Otherwise, moxios API won't succeed, timeout error will be returned.
+
+```text
+
+```
 
