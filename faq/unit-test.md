@@ -85,3 +85,70 @@ module.exports = {
 window.history.pushState({}, 'Test Title', '/cluster/xyz')
 ```
 
+
+## Use Redux state and ignore A10Theme issue and cannot run a10-gui-framework store procedure.
+1 createState
+```
+import { Map } from 'immutable'
+import Settings from 'src/containers/Controller/Dashboard/Settings'
+
+export default () => {
+  let data = Map()
+  data = data.setIn(Settings.namespace.dashboardEventInfo, Map(Settings.rangePeriod))
+  return {
+    A10Data: data,
+    A10Theme: Map(),
+    A10Locale: Map(),
+  }
+}
+```
+2 Use initState={state} in HCProvider to add data to Redux store
+
+```
+const renderTestComponent = () => {
+  // Init Redux Store
+  const state = createState()
+  const ActivitiesList = require('../index').default
+  return TestRenderer.create(
+    <HCProvider initState={state>
+      <ActivitiesList parent="provider" />
+    </HCProvider>,
+  )
+}
+
+```
+
+## How to find your component in the customzied form?
+Solution: find it by name inside the moxios.wait function
+
+1 add it into moxios.wait function
+```
+test('function handleItemChange', async () => {
+  mockAPIResponse()
+  const testComponent = createGeoListForm()
+  moxios.wait(() => {
+    const customForm = testComponent.root.find((node: any) => (node.type as any).name === 'GeoListForm')
+    let callback = jest.fn()
+    let item = { name: '' }
+    customForm.instance.handleItemChange('bj2', item, callback)
+    expect(item.name).toBe('bj2')
+    expect(callback.mock.calls.length).toBe(1)
+  })
+})
+```
+2 add it into setImmediate function
+```
+test('function handleItemChange', (done: any) => {
+  mockAPIResponse()
+  const testComponent = createGeoListForm()
+  setImmediate(() => {
+    const customForm = testComponent.root.find((node: any) => (node.type as any).name === 'GeoListForm')
+    let callback = jest.fn()
+    let item = { name: '' }
+    customForm.instance.handleItemChange('bj2', item, callback)
+    expect(item.name).toBe('bj2')
+    expect(callback.mock.calls.length).toBe(1)
+    done()
+  })
+})
+```
