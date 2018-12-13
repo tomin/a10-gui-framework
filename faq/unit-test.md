@@ -53,7 +53,35 @@ describe("GIFW Table Test", () =>{
 
 In the function 'onUnAssociateSG', serviceGroup API is `/hccapi/v3/provider/${getItem( 'PROVIDER',)}/tenant/${tenant}/shared-object/slb/service-group/${sgName}`. Before testing the function, provider name needs to be initialized. Otherwise, moxios API won't succeed, timeout error will be returned.
 
-```text
+```
+ test('should call onUnassociateSg in PortList.tsx work', async (done: any) => {
+    ;(global as any).sessionStorage.setItem('PROVIDER', 'root')
+    ;(global as any).sessionStorage.setItem('tenant', 'test')
+    ;(global as any).sessionStorage.setItem('ALLTENANTS', '[{"name": "test"}]')
+    mockGetServiceGroupResponse()
+    mockPostServiceGroupResponse()
+    const testComponent = renderPortList()
+    const portListNode = testComponent.root.find(
+      (node: any) => node.type.name === 'PortList',
+    )
+    await portListNode.instance.onUnAssociateSg(
+      portListProps.data[0],
+      'httpService1-80',
+    )
+    expect(testComponent.toJSON()).toMatchSnapshot()
+    done()
+  })
+```
 
+## How to test the code having window.location.href?
+1 Add URL in the jest config
+```
+module.exports = {
+  testURL: 'http://localhost/',
+```
+
+2 Use HTML5 history API
+```
+window.history.pushState({}, 'Test Title', '/cluster/xyz')
 ```
 
